@@ -16,13 +16,16 @@ public class Main {
 //    return path;
 //  }
 
+  public static void bfs(int[][] turbik, int s, int t) {
+      
+  }
+
   public static int[][] fileRead() {
 
     int[][] grapho = null;
     int length = 0;
 
-       // Считывание файла
-       try {
+    try {
             Scanner sc = new Scanner (new File("666.txt"));
 
             length = sc.nextInt();
@@ -51,6 +54,9 @@ public class Main {
   public static void main(String[] args) {
       int[][] turbik = fileRead();
       System.out.println(turbik.length);
+      s = 0;
+      t = 2;
+      bfs (turbik, s, t);
 
   }
 }
