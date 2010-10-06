@@ -15,7 +15,7 @@ public class Main {
         Arrays.fill(flags, true);
         Arrays.fill(p, -1);
 
-        d[0] = 0;
+        d[0] = 0; 
 
         int i = 0, min = Integer.MAX_VALUE, pos = 0;
         while (i < graph.length) {
@@ -36,7 +36,7 @@ public class Main {
                 }
             }
             i++;
-            min = 200;
+            min = Integer.MAX_VALUE;
         }
 
         System.out.println();
@@ -46,7 +46,7 @@ public class Main {
         path(p, 2);
         System.out.println();
         for (int j = 0; j < d.length; j++) System.out.print(d[j] + " ");
-        System.out.println();
+        System.out.println("--------------------");
     }
 
 
