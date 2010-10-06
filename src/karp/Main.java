@@ -5,17 +5,17 @@ import java.util.*;
 
 public class Main {
 
-    public static void dijkstra(int graph[][]) {
+    public static void dijkstra(int graph[][],int s, int t) {
         
         int d[] = new int[graph.length];        
-        int p[] = new int[graph.length];
+        int prev[] = new int[graph.length];
         boolean flags[] = new boolean[graph.length];
 
         Arrays.fill(d, Integer.MAX_VALUE);
         Arrays.fill(flags, true);
-        Arrays.fill(p, -1);
+        Arrays.fill(prev, -1);
 
-        d[0] = 0; 
+        d[s] = 0;
 
         int i = 0, min = Integer.MAX_VALUE, pos = 0;
         while (i < graph.length) {
@@ -32,28 +32,35 @@ public class Main {
             for (int j = 0; j < graph.length; j++) {
                 if (d[j] > graph[pos][j] + d[pos]) {
                     d[j] = graph[pos][j] + d[pos];
-                    p[j] = pos;
+                    prev[j] = pos;
                 }
             }
             i++;
             min = Integer.MAX_VALUE;
         }
 
+        Stack invpath = new Stack();
+
         System.out.println();
         System.out.println("1 2 3 4 5 6");
-        for (int j = 0; j < p.length; j++) System.out.print(p[j] + " ");
+        for (int j = 0; j < prev.length; j++) System.out.print(prev[j] + " ");
         System.out.println();
-        path(p, 2);
+        path(prev, t, invpath);
         System.out.println();
         for (int j = 0; j < d.length; j++) System.out.print(d[j] + " ");
-        System.out.println("--------------------");
+        int[] path = new int[invpath.size() + 1];
+        path[path.length - 1] = t;
+        for (int j = 0; j < path.length - 1; j++) path[j] = (Integer) invpath.pop();
+        System.out.print("\n----------------------\nPath: ");
+        for (int j = 0; j < path.length; j++) System.out.print(path[j] + " -> ");
+        System.out.println("= " + d[t]);
     }
 
 
-    public static void path(int[] p, int to) {
-        if (p[to] != -1) {
-            System.out.print(p[to] + " ");
-            path(p, p[to]);
+    public static void path(int[] prev, int to, Stack invpath) {
+        if (prev[to] != -1) {
+            invpath.push(prev[to]);
+            path(prev, prev[to], invpath);
         }
     }
 
@@ -92,9 +99,8 @@ public class Main {
 
   public static void main(String[] args) {
       int[][] turbik = fileRead();
-      int s = 0;
-      int t = 2;
-      dijkstra (turbik);
-
+      int s = 2;
+      int t = 5;
+      dijkstra (turbik, s, t);
   }
 }
